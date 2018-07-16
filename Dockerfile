@@ -1,24 +1,25 @@
-FROM postgres
+FROM postgres:10.4
 
 WORKDIR /root
 
 #Install postgres dev and python integration
-RUN apt-get update
-RUN apt-get -y install git
-RUN apt-get -y install postgresql-server-dev-all
-RUN apt-get -y install postgresql-common
-RUN apt-get -y install postgresql-plpython3-10
-RUN apt-get -y install python3-pip
-RUN apt-get -y install libgmp3-dev
-RUN apt-get -y install libmpfr-dev
-RUN apt-get -y install libmpc-dev
+RUN apt-get update && apt-get install -y \
+        git=1:2.11.0-* \
+        postgresql-server-dev-all=191.* \
+        postgresql-common=191.* \
+        postgresql-plpython3-10=10.4-2.* \
+        python3-pip=9.0.1-* \
+        libgmp3-dev=2:6.1.2+* \
+        libmpfr-dev=3.1.5-1 \
+        libmpc-dev=1.0.3-1+*
 
 #Install python libraries
-RUN python3 -m pip install gmpy2
-RUN python3 -m pip install click
-RUN python3 -m pip install pycrypto
-RUN python3 -m pip install numpy
-RUN python3 -m pip install nose
+RUN python3 -m pip install \
+    gmpy2==2.0.8 \
+    click==6.7 \
+    pycrypto==2.6.1 \
+    numpy==1.14.5 \
+    nose==1.3.7
 
 #Install phe
 RUN git clone https://github.com/n1analytics/python-paillier.git
