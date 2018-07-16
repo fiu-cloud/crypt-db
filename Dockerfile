@@ -1,6 +1,12 @@
 FROM postgres:10.4
 
+#Copy resources
+ADD src/main/sql/setup_udfs.sql /root/setup_udfs.sql
+
+#Set working directory
 WORKDIR /root
+
+RUN cp setup_udfs.sql /docker-entrypoint-initdb.d
 
 #Install postgres dev and python integration
 RUN apt-get update && apt-get install -y \

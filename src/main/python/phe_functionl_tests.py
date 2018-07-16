@@ -80,8 +80,8 @@ def multiplicationTest2():
         print(formatPad(x[0]) + ", "+formatPad(x[1])+", "+formatDiff(diff)+", "+ formatPad(multiplied)+ ","+formatPad(d_multiplied))
     return
 
-encDecTest()
-#additionTest()
+#encDecTest()
+additionTest()
 #multiplicationTest1()
 #multiplicationTest2()
 
