@@ -12,8 +12,6 @@ AS $$
  return 1
 $$ LANGUAGE plpython3u;
 
-select init();
-
 CREATE OR REPLACE FUNCTION encrypt (in_value double precision)
   RETURNS bytea
 AS $$
@@ -34,4 +32,19 @@ AS $$
  return decrypted
 $$ LANGUAGE plpython3u;
 
-select decrypt(encrypt(3.141592653589793));
+CREATE OR REPLACE FUNCTION addition (in_value_left bytea, in_value_right bytea)
+  RETURNS bytea
+AS $$
+ import phe.paillier as paillier, math, pickle
+ value_left = pickle.loads(in_value_left)
+ value_right = pickle.loads(in_value_right)
+ return pickle.dumps(value_left + value_right)
+$$ LANGUAGE plpython3u;
+
+CREATE OR REPLACE FUNCTION multiplication (in_value_left bytea, in_value_right double precision)
+  RETURNS bytea
+AS $$
+ import phe.paillier as paillier, math, pickle
+ value_left = pickle.loads(in_value_left)
+ return pickle.dumps(value_left * in_value_right)
+$$ LANGUAGE plpython3u;
