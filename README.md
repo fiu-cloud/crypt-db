@@ -5,7 +5,7 @@ Postgres UDF (using python / prl) to do floating point paillier encryption opera
 
 # Start Postgres & Python
 ```
-docker run --name crypt-db  -e POSTGRES_PASSWORD=mysecret -p 5432:5432 -d fiu-cloud/crypt-db
+docker run --name crypt-db  -e POSTGRES_PASSWORD=mysecret -p 5432:5432 -d fiucloud/crypt-db
 ```
 
 You can now connect PgpAdmin or similar to you localhost running paillier postgres (port 5432). Try the example below
@@ -83,10 +83,10 @@ select * from test_tbl;
 ### Manual build commands
 This is not required if pulling iamge from DockerHub
 ```
-docker build -t fiu-cloud/crypt-db:latest .
+docker build -t fiucloud/crypt-db:latest .
 docker kill crypt-db
 docker rm crypt-db
-docker run --name crypt-db  -e POSTGRES_PASSWORD=mysecret -p 5432:5432 -d fiu-cloud/crypt-db
+docker run --name crypt-db  -e POSTGRES_PASSWORD=mysecret -p 5432:5432 -d fiucloud/crypt-db
 docker exec -i -t crypt-db /bin/bash #Log into container
 ``` 
 
