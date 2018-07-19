@@ -2,6 +2,7 @@ import math
 import random
 import phe.paillier as paillier
 pubkey, prikey = paillier.generate_paillier_keypair(n_length=1024)
+import time
 
 
 # time: o(n), space: o(1)
@@ -30,12 +31,16 @@ def mult(x,y):
 # time: o(n), space: o(1)
 def taylorPseudoFHETest(exp,iterations):
     expected = math.exp(exp)
+
+    start = time.time()
     result = pubkey.encrypt(1)
     prev = result
     for n in range(1,iterations):
         current = (mult(prev, pubkey.encrypt(exp))/n)
         result += current
         prev = current
+    end = time.time()
+    print("total elapsed time ("+ str(iterations)+ " multiplications) "+ str((int((end - start)*1000))) + "ms")
     actual = prikey.decrypt(result)
     print("taylorPseudoFHETest test ("+ str(iterations)+ " iterations) pass="+ str(math.fabs(expected - actual) < 0.00001))
     print("Expected "+ formatPad(expected))
