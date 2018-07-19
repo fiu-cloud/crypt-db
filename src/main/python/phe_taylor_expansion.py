@@ -36,11 +36,22 @@ def taylorPseudoFHETest(exp,iterations):
         current = (mult(prev, pubkey.encrypt(exp))/n)
         result += current
         prev = current
-    print("taylorPseudoFHETest test pass="+ str(math.fabs(expected - prikey.decrypt(result)) < 0.00001))
+    actual = prikey.decrypt(result)
+    print("taylorPseudoFHETest test ("+ str(iterations)+ " iterations) pass="+ str(math.fabs(expected - actual) < 0.00001))
+    print("Expected "+ formatPad(expected))
+    print("Actual   "+ formatPad(actual))
 
 
-taylorTest(math.pi,20)
-taylorPseudoFHETest(math.pi,20)
+def formatPad(inNumber):
+    if abs(inNumber) > 10e+17:
+        out = ("%+.3f"%inNumber)
+    else:
+        out = ("%+.20f"%inNumber).zfill(40)
+    return out
+
+
+taylorTest(math.pi,30)
+taylorPseudoFHETest(math.pi,30)
 
 
 
