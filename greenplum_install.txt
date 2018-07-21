@@ -1,0 +1,11 @@
+docker pull ubuntu:16.04
+docker run -it ubuntu:16.04 /bin/bash
+    apt-get update
+    apt-get install -y software-properties-common
+    add-apt-repository ppa:greenplum/db
+    apt-get update
+    apt-get install -y greenplum-db-oss
+    source /opt/gpdb/greenplum_path.sh
+    echo $GPHOME
+    adduser gpadmin
+    passwd gpadmin
