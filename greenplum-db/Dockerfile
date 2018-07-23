@@ -12,11 +12,10 @@ RUN cat /tmp/sysctl.conf.add >> /etc/sysctl.conf \
     && rm -f /tmp/*.add \
     && echo "localhost" > /tmp/gpdb-hosts \
     && chmod 777 /tmp/gpinitsystem_singlenode \
-    #&& hostname > ~/orig_hostname \
-    && mv /tmp/setup_gp.sh /usr/local/bin/setup_gp.sh \
+    && chmod 555 /tmp/banner.txt \
     && mv /tmp/start_gp.sh /usr/local/bin/start_gp.sh \
     && mv /tmp/stop_gp.sh /usr/local/bin/stop_gp.sh \
-    && chmod +x /usr/local/bin/start_gp.sh /usr/local/bin/setup_gp.sh /usr/local/bin/stop_gp.sh \
+    && chmod +x /usr/local/bin/start_gp.sh /usr/local/bin/stop_gp.sh \
     && localedef -i en_US -f UTF-8 en_US.UTF-8
 
 
@@ -31,7 +30,7 @@ RUN localedef -i en_US -f UTF-8 en_US.UTF-8 \
 
 EXPOSE 5432 22
 VOLUME /gpdata
-ENTRYPOINT ["/bin/bash"]
+CMD ["/bin/bash", "-c", "start_gp.sh && /bin/bash"]
 
-#docker run --name my-gp -it -p 5432:5432 -d fiucloud/gp
-#docker exec -it infallible_johnson /bin/bash
+#docker run --name my-gp -i -t -p 5432:5432 -d fiucloud/gp /bin/bash
+#docker exec -i -t my-gp /bin/bash

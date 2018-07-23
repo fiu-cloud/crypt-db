@@ -1,3 +1,2 @@
 export MASTER_DATA_DIRECTORY=/gpdata/master/gpseg-1
 source /opt/gpdb/greenplum_path.sh
-echo "Bash profile ㅇㅋ"
